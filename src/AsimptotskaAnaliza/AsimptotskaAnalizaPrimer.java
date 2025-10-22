@@ -22,7 +22,7 @@ public class AsimptotskaAnalizaPrimer {
         System.out.println("Primer tuka printam neshto");
         System.out.print("Blabla \n");
         System.out.print("Bukva");
-
+//
         System.out.println(n);
 
 

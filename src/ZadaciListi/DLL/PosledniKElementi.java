@@ -29,37 +29,31 @@ public class PosledniKElementi {
         int N = sc.nextInt();
         DLL<Integer> lista = new DLL<>();
 
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++){
             lista.insertLast(sc.nextInt());
         }
 
+        System.out.println(lista);
+
         int K = sc.nextInt();
 
-        System.out.println(lista.toString());
-
-        // Ako k == 0 ili K == N togash listata ostanuva ista
-        if (K <= 0 || K >= N) {
-            System.out.println(lista.toString());
+        if (K >= N){
+            System.out.println(lista);
             return;
         }
 
-        DLLNode<Integer> first = lista.getFirst();
-        DLLNode<Integer> tmp = lista.getLast(); // pocni od nazad za da gi zamenuvash so insert before i vmetnuvaj gi sekogash pred prviot
+        DLLNode<Integer> tmp = lista.getLast();
         int counter = 0;
 
-        // se dodeka tmp != nuull ili counterot ne ja dostigne vrednosta na k
-        // od nazad kon napred
-        while (tmp != null && counter < K) {
-            DLLNode<Integer> previous = tmp.pred;
-            int value = tmp.element;
-
+        while(counter < K && tmp != null){
+            //DLLNode<Integer> current = tmp;
             lista.delete(tmp);
-            lista.insertBefore(value, first); // vmetnuvaj pred incijaniot first
+            lista.insertFirst(tmp.element);
 
-            first = lista.getFirst(); // zemi nov first
-            tmp = previous;
-            counter++; // osvezi counter za while ciklus
+            tmp = tmp.pred;
+            counter++;
         }
-        System.out.println(lista.toString());
+
+        System.out.println(lista);
     }
 }

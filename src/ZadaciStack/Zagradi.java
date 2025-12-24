@@ -1,5 +1,7 @@
 package ZadaciStack;
+
 import EdnodimenzionalniPodStrukturi.ArrayStack;
+import EdnodimenzionalniPodStrukturi.LinkedStack;
 
 import java.util.Scanner;
 
@@ -12,36 +14,38 @@ import java.util.Scanner;
 //Влез: ( [ ) ]
 //Излез: False
 
+// ( { } ) ]
+
+// stack: ({
 
 public class Zagradi {
 
-    public static boolean isBalanced(String expression){
-        ArrayStack<Character> stack = new ArrayStack<Character>(expression.length());
+    public static boolean validniZagradi(String input){
+        LinkedStack<Character>  stack = new  LinkedStack<>();
 
-        for(char c : expression.toCharArray()){
-            if(c == '(' || c == '[' || c == '{'){
+        for(char c : input.toCharArray()){
+            if(c == '(' || c == '{' || c == '[')
                 stack.push(c);
-            }
 
-            else if(c == ')' || c == ']' || c == '}'){
+            else if(c == ')' || c == '}' || c == ']'){
                 if(stack.isEmpty())
                     return false;
+
                 char top = stack.pop();
                 if(!isMatching(top, c))
                     return false;
             }
         }
 
-        return stack.isEmpty();
-        // {([( )])
+        return true;
     }
 
-    private static boolean isMatching(char open, char close){
+    public static boolean isMatching(char open, char close){
         if(open == '(' && close == ')')
             return true;
-        else if (open == '{' && close == '}')
+        else if(open == '{' && close == '}')
             return true;
-        else if (open == '[' && close == ']')
+        else if(open == '[' && close == ']')
             return true;
         return false;
     }
@@ -49,13 +53,10 @@ public class Zagradi {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        boolean result = isBalanced(input);
-        if(result){
+        boolean result = validniZagradi(input);
+        if(result)
             System.out.println("True");
-        }
-        else {
+        else
             System.out.println("False");
-        }
     }
-
 }

@@ -10,33 +10,32 @@ import java.util.Scanner;
 
 public class ReverseString {
 
-    public static String reverseString(String text){
+    public static void reverseString(String text){
         ArrayStack<Character> stack = new ArrayStack<Character>(text.length());
 
+        // karakter po karakter
         for(char c : text.toCharArray()){
             stack.push(c);
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        //String str = "";
+        System.out.println(stack.size());
+
         while(!stack.isEmpty()){
-            stringBuilder.append(stack.pop());
-            //str += stack.pop();
+//            char c = stack.pop();
+//            stringBuilder.append(c);
+            System.out.print(stack.pop());
         }
-        return stringBuilder.toString();
+
+        System.out.println();
+        //System.out.println(stringBuilder.toString());
+        System.out.println(stack.size());
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         String result = sc.nextLine();
-
         System.out.println(result);
-
-        System.out.println(reverseString(result));
-
-        //ArrayStack<Character> stack = new ArrayStack<Character>();
-
-
+        reverseString(result);
     }
-
 }

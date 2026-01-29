@@ -27,7 +27,6 @@
 
 package HashTables.OBHT.Zadaci;
 
-
 import HashTables.OBHT.PodStrukturi.OBHT;
 
 import java.io.BufferedReader;
@@ -36,28 +35,30 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class PM10{
+
     public static void main(String[] args) throws IOException {
+        // key: string - naselba
+        // value: double - pm10
         int N;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
 
-        // kluc:
-        // vrednost:
-//        OBHT<String, Double> hashTable = new OBHT<>(2 * N);
         OBHT<String, ArrayList<Double>> hashTable = new OBHT<>(2*N);
 
-        for(int i = 0; i < N; i++){
+        for(int i =0; i < N; i++){
             String input = br.readLine();
-            String [] row = input.split(" ");
+            String [] parts = input.split(" ");
 
-            String neighbourhood = row[0];
-            double pm10 = Double.parseDouble(row[1]);
+            String neighbourhood = parts[0];
+            double pm10 = Double.parseDouble(parts[1]);
 
+            // nikogash zafatena
             if(hashTable.search(neighbourhood) == -1){
                 ArrayList<Double> list = new ArrayList<>();
                 list.add(pm10);
                 hashTable.insert(neighbourhood, list);
             }
+            // zafatena
             else{
                 ArrayList<Double> list = hashTable.getBucket(hashTable.search(neighbourhood)).value;
                 list.add(pm10);
@@ -67,17 +68,17 @@ public class PM10{
 
         String neighbourhood = br.readLine();
         ArrayList<Double> list = hashTable.getBucket(hashTable.search(neighbourhood)).value;
-        if(list.size() > 0){
+        if(!list.isEmpty()){
             double sum = 0;
             for(double v : list){
                 sum += v;
             }
-//            System.out.println("Prosecnata vrednost e: " + sum / list.size());
-            System.out.printf("%.2f", sum / list.size());
+            System.out.printf("%.2f", sum/list.size());
         }
         else{
-            System.out.println("Nema elementi za taa opstina");
+            System.out.println("Nema merenja za taa naselba");
         }
+
     }
 }
 

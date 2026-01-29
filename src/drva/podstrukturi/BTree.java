@@ -1,3 +1,8 @@
+// da se pronajde sumata na celo drvo
+
+
+// dopolnitelno: da se presmeta sumata na jazlite koi sto imaat samo levi deca
+
 package drva.podstrukturi;
 public class BTree<E> {
     
@@ -73,34 +78,36 @@ public class BTree<E> {
         if (n != null) {
             postorderR(n.left);
             postorderR(n.right);
-            System.out.print(n.info.toString()+" ");
+            System.out.print(n.info.toString() + " ");
         }
     }
 
     public void findJazol(E elem){
         BNode<E> jazol = findJazolR(root, elem);
-        if(jazol != null){
-            System.out.println("Jazolot so element: " + elem.toString() + " e prisuten vo ova drvo");
+        if (jazol != null){
+            System.out.println("Jazolot so element bla bla: " + elem.toString() + " e prisuten vo ova drvo");
         }
-        else {
-            System.out.println("Jazolot so element: " + elem.toString() + " ne e pronajden vo ova drvo");
+        else{
+            System.out.println("Jazolot so element bla bla: " + elem.toString() + " NE E prisuten vo ova drvo");
         }
     }
 
     private BNode<E> findJazolR(BNode<E> node, E elem){
-        if (node == null)
+        if(node == null){
             return null;
+        }
 
-        if (node.info.equals(elem)){
+        if(node.info.equals(elem)){
             return node;
         }
 
-        BNode<E> findLeft = findJazolR(node.left, elem);
-        if(findLeft != null){
-            return findLeft;
+        BNode<E> left = findJazolR(node.left, elem);
+        if(left != null){
+            return left;
         }
 
-        BNode<E> findRight = findJazolR(node.right, elem);
-        return findRight;
+        BNode<E> right = findJazolR(node.right, elem);
+        return right;
+
     }
 }

@@ -28,19 +28,24 @@ import java.util.Scanner;
 public class Rodendeni {
 
     public static void main(String[] args) {
-        // 12 meseci, 13, 23
-        //n/m
-        CBHT<String, Integer> hashTabela = new CBHT<String, Integer>(23);
-        int n;
+
+        // M/N = 0.5, 0.75
+        // N = 23
+        // value = int (number of people born in that month)
+        // key = string (month)
+
+        CBHT<String, Integer> hashTabela = new CBHT<>(23);
         Scanner sc = new Scanner(System.in);
+        int n;
         n = sc.nextInt();
+
         sc.nextLine();
 
         for(int i = 0; i < n; i++){
-            String line = sc.nextLine();
-            String [] data = line.split("\\.");
+            String datum = sc.nextLine();
+            String [] data =  datum.split("\\.");
             String mesec = data[1];
-            //System.out.println(data[1]);
+
             if(hashTabela.search(mesec) == null){
                 hashTabela.insert(mesec, 1);
             }
@@ -52,13 +57,12 @@ public class Rodendeni {
 
         String mesec = sc.nextLine();
         SLLNode<MapEntry<String, Integer>> mesecKofa = hashTabela.search(mesec);
-        if (mesecKofa != null){
+        if(mesecKofa != null){
             System.out.println(mesecKofa.element.value);
         }
         else{
             System.out.println("Empty");
         }
-
     }
 
 }

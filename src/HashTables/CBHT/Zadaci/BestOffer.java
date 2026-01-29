@@ -23,6 +23,8 @@
 //        09:00 Beijing 8000
 
 
+
+
 // книга: 189 страна
 
 package HashTables.CBHT.Zadaci;
@@ -34,51 +36,54 @@ import HashTables.CBHT.PodStrukturi.SLLNode;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Scanner;
 
-class Lecture implements Comparable<Lecture>{
+
+class Lecture implements Comparable<Lecture> {
     String hour;
     String city;
     int price;
 
-    // alt + insert
     public Lecture(String hour, String city, int price) {
         this.hour = hour;
         this.city = city;
         this.price = price;
     }
 
+
+    @Override
+    public int compareTo(Lecture o) {
+        if(this.price > o.price){
+            return 1;
+        }
+        else if(this.price < o.price){
+            return -1;
+        }
+        else
+            return 0;
+    }
+
     @Override
     public String toString() {
         return  hour + " " + city + " " + price;
     }
-
-    @Override
-    public int compareTo(Lecture o) {
-        if(this.price > o.price)
-            return 1;
-        else if(this.price < o.price)
-            return -1;
-        else
-            return 0;
-    }
 }
+
 
 public class  BestOffer {
 
-    // izlez: vreme grad zarabotka na predacacot
-    // key: string (Celosniot datum)
-    // value: sopstvena klasa
     public static void main(String[] args) throws IOException {
-        // Scanner
 //        Scanner sc = new Scanner(System.in);
 //        int N = sc.nextInt();
-        // BufferedReader
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
+
+        // cbht tabela
+        // kluc: datum - string
+        // vrednost: lecture - object from custom class
         CBHT<String, Lecture> lectures = new CBHT<>(2*N);
-//        50/100 = 0.5
+
         for(int i = 0; i < N; i++){
             //27/01/2016 14:00 NewYork 6000
             String lecture = br.readLine();
@@ -87,10 +92,10 @@ public class  BestOffer {
             Lecture l1 = new Lecture(parts[1], parts[2], Integer.parseInt(parts[3]));
 
             if(lectures.search(datum) != null){
-                SLLNode<MapEntry<String, Lecture>> me = lectures.search(datum);
-                if(l1.compareTo(me.element.value) == 1){
-                    lectures.delete(datum);
+                SLLNode<MapEntry<String, Lecture>> mapEntry = lectures.search(datum);
+                if(l1.compareTo(mapEntry.element.value) == 1){ // reminder: drug nacin
                     lectures.insert(datum, l1);
+
                 }
             }
             else{
@@ -99,14 +104,16 @@ public class  BestOffer {
         }
 
         String date = br.readLine();
-        SLLNode<MapEntry<String, Lecture>> me = lectures.search(date);
-        if(me != null){
-            System.out.println(me.element.value);
+        SLLNode<MapEntry<String, Lecture>> mapEntry = lectures.search(date);
+
+//        Arrays.sort(lectures);
+
+        if(mapEntry != null){
+            System.out.println(mapEntry.element.value);
         }
         else{
             System.out.println("No offers");
         }
-
     }
 
 }

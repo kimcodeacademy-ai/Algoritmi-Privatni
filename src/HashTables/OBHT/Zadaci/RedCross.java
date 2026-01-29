@@ -30,37 +30,33 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class RedCross{
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        // Key:
-        // Value:
-        // m/n - 0.5 -0.75
-        OBHT<String, Integer> hashtable = new OBHT<>(11);
+        // Key: krvna grupa - string
+        // Value: counter za krvna grupa - integer
+        OBHT<String, Integer> hashTable = new OBHT<>(2*N);
+
         for(int i = 0; i < N; i++){
             String input = br.readLine();
             String [] row = input.split(" ");
             String key = row[1];
-            key = key.replaceAll("[1-2]","");
 
-            if(hashtable.search(key) == -1){
-                hashtable.insert(key, 1);
-            }
-            else{
-                int currentValue = hashtable.getBucket(hashtable.search(key)).value;
-                hashtable.insert(key, currentValue + 1);
-            }
+            key = key.replaceAll("[1-2]", "");
 
+            if(hashTable.search(key) == -1){
+                hashTable.insert(key, 1);
+            }
+            else {
+                int currentValue = hashTable.getBucket(hashTable.search(key)).value;
+                hashTable.insert(key, currentValue + 1);
+            }
         }
-
-        System.out.println(hashtable);
-//        for(int i = 0; i < hashtable.buckets.length; i++){
-//            if(hashtable.buckets[i] != null) {
-//                System.out.println(hashtable.buckets[i].key + "=" + hashtable.buckets[i].value);
-//            }
-//        }
+        System.out.println(hashTable);
     }
+
 }
 
 

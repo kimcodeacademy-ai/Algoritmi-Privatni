@@ -6,19 +6,28 @@ package drva.podstrukturi;
 public class NajdiJazol {
 
     public static void main(String[] args) {
-        System.out.println("Vnesi 6 jazli: ");
-        BTree<String> stringBTree = new BTree<>();
-        stringBTree.makeRoot("vojdan");
 
-        BNode<String> nasko = stringBTree.addChild(stringBTree.root, 1, "nasko");
-        BNode<String> mila = stringBTree.addChild(stringBTree.root, 2, "mila");
-        stringBTree.addChild(nasko, 1, "dusan");
-        BNode<String> jana = stringBTree.addChild(mila, 2, "jana");
-        stringBTree.addChild(jana, 1, "blaze");
+        System.out.println("Vnesi jazli vo drvoto: ");
+        BTree<String> stringBTree = new BTree<String>("gligorce");
+        //stringBTree.makeRoot("gligorce");
+
+        BNode<String> riste = stringBTree.addChild(stringBTree.root, 1, "riste");
+        BNode<String> petar = stringBTree.addChild(stringBTree.root, 2, "petar");
+
+        BNode<String> kole = stringBTree.addChild(riste, 1, "kole");
+        BNode<String> zvone = stringBTree.addChild(riste, 2, "zvone");
+
+        BNode<String> vladimir = stringBTree.addChild(zvone, 1, "vladimir");
+        BNode<String> branko = stringBTree.addChild(zvone, 2, "branko");
 
         stringBTree.preorder();
+//        stringBTree.inorder();
+//        stringBTree.postorder();
 
-        stringBTree.findJazol("blaze");
-        stringBTree.findJazol("iva");
+        stringBTree.findJazol("kole");
+        stringBTree.findJazol("petko");
+
     }
+
+
 }

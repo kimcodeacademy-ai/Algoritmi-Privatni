@@ -16,6 +16,9 @@ public class MapEntry<K extends Comparable<K>,E> implements Comparable<K> {
         // Compare this map entry to that map entry.
         @SuppressWarnings("unchecked")
         MapEntry<K,E> other = (MapEntry<K,E>) that;
+        // 0 if equal
+        // 1 if this.object.key > other.object.key
+        // -1 if this.object.key < other.object.key
         return this.key.compareTo(other.key);
     }
 

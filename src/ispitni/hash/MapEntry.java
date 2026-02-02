@@ -1,0 +1,28 @@
+package ispitni.hash;
+
+public class MapEntry<K extends Comparable<K>,E> implements Comparable<K> {
+
+    // Each MapEntry object is a pair consisting of a key (a Comparable 
+    // object) and a value (an arbitrary object).
+    public K key;
+    public E value;
+
+    public MapEntry (K key, E val) {
+        this.key = key;
+        this.value = val;
+    }
+
+    public int compareTo (K that) {
+        // Compare this map entry to that map entry.
+        @SuppressWarnings("unchecked")
+        MapEntry<K,E> other = (MapEntry<K,E>) that;
+        // 0 if equal
+        // 1 if this.object.key > other.object.key
+        // -1 if this.object.key < other.object.key
+        return this.key.compareTo(other.key);
+    }
+
+    public String toString () {
+        return "<" + key + "," + value + ">";
+    }
+}

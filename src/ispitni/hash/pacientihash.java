@@ -38,12 +38,12 @@
 //Centar Trajkovski positive
 
 
-// kluc: opstinta (string)
 
-// resenie 1: posebna klasa - Pacient: boolean positive
+// resnie1: Da si izgradish sopstvena klasa
+// kluc: String (opstina), Vrednost Lista<Klasa>
 
-// resenei 2: so dve hash tabeli
-// 1. Pozitivni pacienti 2. Negativni Pacienti
+// resenie2: Da napravish 2 hash tabeli
+// kluc: String (opstina), 2 hash tabeli
 
 
 package ispitni.hash;
@@ -57,59 +57,52 @@ public class pacientihash {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
+
+        // 0.5/0.75 - prost broj
         CBHT<String, Integer> positivePatients = new CBHT<>(2*N);
         CBHT<String, Integer> negativePatients = new CBHT<>(2*N);
 
-        //Centar Stojanoski negative
-        for(int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             String line = br.readLine();
             String [] parts = line.split(" ");
-
             String opstina = parts[0];
             String rezultat = parts[2];
 
-            //Centar Stojanoski negative
-            //Centar Trajkovski positive
-            //Centar Petkovski positive
-            //Karpos Stojanoski positive
-            //Karpos Trajkovski negative
-            //Centar Trajkovski positive
-
-            if(rezultat.equals("positive")){
-                SLLNode<MapEntry<String, Integer>> pozitPacienti = positivePatients.search(opstina);
-                if(pozitPacienti == null){
+            if(rezultat.equals("positive")) {
+                SLLNode<MapEntry<String, Integer>> pozPaci = positivePatients.search(opstina);
+                if(pozPaci == null) {
                     positivePatients.insert(opstina, 1);
                 }
                 else{
-                    Integer numPositive = pozitPacienti.element.value+1;
-                    positivePatients.insert(opstina, numPositive);
+                    Integer numPositive = pozPaci.element.value;
+                    positivePatients.insert(opstina, numPositive+1);
                 }
             }
-            else{
 
-                SLLNode<MapEntry<String, Integer>> negatPacienti = negativePatients.search(opstina);
-                if(negatPacienti == null){
+            else{
+                SLLNode<MapEntry<String, Integer>> negPaci = negativePatients.search(opstina);
+                if(negPaci == null) {
                     negativePatients.insert(opstina, 1);
                 }
                 else{
-                    Integer negPositive = negatPacienti.element.value+1;
-                    negativePatients.insert(opstina, negPositive);
+                    Integer numNegative = negPaci.element.value;
+                    negativePatients.insert(opstina, numNegative+1);
                 }
             }
         }
 
-        //Ризик фактор =
-//        броj на позитивни пациенти /
+        String opstina = br.readLine();
+        SLLNode<MapEntry<String, Integer>> pozPaci = positivePatients.search(opstina);
+        SLLNode<MapEntry<String, Integer>> negPaci = negativePatients.search(opstina);
+
+        int pozitivni = pozPaci.element.value;
+        int negativni = negPaci.element.value;
+
+        //        броj на позитивни пациенти /
 //броj на негативни пациенти + броj на позитивни пациенти
+        double rizik_faktor = pozitivni * 1.0 / (negativni+pozitivni);
 
-        String ops = br.readLine();
-        Integer pozitivni = positivePatients.search(ops).element.value;
-        Integer negativni = negativePatients.search(ops).element.value;
-
-        double rizikFaktor = pozitivni * 1.0 / (negativni+pozitivni);
-        System.out.println(String.format("%.2f", rizikFaktor));
-
-
+        System.out.println(rizik_faktor);
     }
 
 }

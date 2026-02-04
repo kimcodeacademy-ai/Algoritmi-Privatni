@@ -5,10 +5,8 @@
 package ispitni.drva;
 
 public class brisilistovi {
-
     public static void main(String[] args) {
         BTree<Integer> tree = new BTree<>();
-
         tree.makeRoot(10);
 
         BNode<Integer> n1 = tree.addChild(tree.root, BNode.LEFT, 5);
@@ -18,14 +16,12 @@ public class brisilistovi {
         tree.addChild(n1, BNode.RIGHT, 7);
         tree.addChild(n2, BNode.RIGHT, 18);
 
-        System.out.println("Pred brishenje: ");
+        System.out.println("Pred brishenhje na listovi");
         tree.inorder();
 
+        System.out.println("Drvoto posle brishenje na listovite e: ");
         tree.deleteLeaves();
-
-        System.out.println("Po brishenje na site listovi: ");
         tree.inorder();
-
 
     }
 }

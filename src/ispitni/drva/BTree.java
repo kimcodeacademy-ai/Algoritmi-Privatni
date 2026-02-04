@@ -113,17 +113,20 @@ public class BTree<E> {
     }
 
     public void deleteLeaves(){
-        deleteLeavesR(root);
+        deleateLeavesR(root);
     }
 
-    private BNode<E> deleteLeavesR(BNode<E> node){
-        if(node == null)
+    private BNode<E> deleateLeavesR(BNode<E> node){
+        if(node == null){
             return null;
-        if(node.left == null && node.right == null)
-            return null;
+        }
 
-        node.left = deleteLeavesR(node.left);
-        node.right = deleteLeavesR(node.right);
+        if(node.left == null && node.right == null){
+            return null;
+        }
+
+        node.left = deleateLeavesR(node.left);
+        node.right = deleateLeavesR(node.right);
 
         return node;
     }

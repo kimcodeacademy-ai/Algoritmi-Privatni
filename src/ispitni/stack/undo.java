@@ -13,7 +13,6 @@
 
 package ispitni.stack;
 
-import java.util.Queue;
 import java.util.Scanner;
 
 public class undo {
@@ -21,39 +20,46 @@ public class undo {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        int n = Integer.parseInt(sc.nextLine());
+        int N = Integer.parseInt(sc.nextLine());
 
-        ArrayStack<String> stack = new ArrayStack<>(n);
+        Stack<String> stack = new ArrayStack<>(N);
 
-        for(int i = 0; i < n; i++){
-            String line =  sc.nextLine();
+        for(int i = 0; i < N; i++){
 
-            //Type + char
-            String [] parts = line.split(" ");
-            //String del = parts[1];
+            String line = sc.nextLine();
 
             if(line.startsWith("TYPE")){
-                stack.push(parts[1]);
+                String [] parts = line.split(" ");
+                if(parts[1] != null)
+                    stack.push(parts[1]);
             }
             else if(line.startsWith("UNDO")){
-                if(!stack.isEmpty()){
+                if(!stack.isEmpty())
                     stack.pop();
-                }
             }
-            else if(line.startsWith("SHOW")){
-                ArrayStack<String> stack2 = new  ArrayStack<>(stack.size());
+            else{
+
+                // H, S, R
+                // SHOW: H S R
+                // TYPE M
+                // H, S, R, M
+
+                ArrayStack<String> stack2 = new ArrayStack<>(N);
 
                 while(!stack.isEmpty()){
-                    String tmp = stack.pop();
-                    System.out.println(tmp);
-                    stack2.push(tmp);
+                    String el = stack.pop();
+                    System.out.println(el);
+                    stack2.push(el);
                 }
 
                 while(!stack2.isEmpty()){
                     stack.push(stack2.pop());
                 }
+
             }
+
         }
+
 
     }
 
